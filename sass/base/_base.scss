@@ -1,0 +1,46 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+/* change box-sizing behavior to be inherited from body throughout page */
+/* box-size here and box-size in body work together */
+
+html {
+  // This defines what 1rem is.
+  font-size: 62.5%; // 1 rem = 16 px, therefore 1px = 1/16 = 62.5 %
+
+  @include respond(tab-land) {
+    // width < 1200?
+    font-size: 56.25%; // 1rem = 9px, 9/16 = 56.25%
+  }
+  @include respond(tab-port) {
+    // width < 900?
+    font-size: 50%; // 1rem = 8px, 8/16 = 50%
+  }
+  @include respond(big-desktop) {
+    font-size: 75%; // 1rem = 12px, 12/16 = 75%
+  }
+}
+/* root font size is set in html selector, this enables rem to be used throughout css */
+/* use 10 as root size as now 1.6rem is easily calculated to 16px */
+/* changed line 18 to %, this allows user settings to be used and we want 10px initial */
+/* and browser default is 16px so 10/16= 62.5% */
+
+body {
+  box-sizing: border-box;
+  padding: 3rem;
+
+  @include respond(tab-port) {
+    padding: 0;
+  }
+}
+
+::selection {
+  // if we will select anything from the website then it's background color will become $color-primary=green and text-color will become $color-white= white
+  // ::selection selector matches the portion of an element that is selected by a user.
+  background-color: $color-primary;
+  color: $color-white;
+}

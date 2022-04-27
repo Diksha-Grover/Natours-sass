@@ -1,0 +1,240 @@
+.card {
+  // Method of transforming an element in the third dimension using the transform property. Includes support for the perspective property to set the perspective in z-space and the backface-visibility property to toggle display of the reverse side of a 3D-transformed element.
+  perspective: 150rem; // choose huge number, arbitrary
+  // perspective property is used to give a 3D-positioned element some perspective
+  -moz-perspective: 150rem; // firefox coverage
+  position: relative; // this collapses the card to no height and eliminates perspective
+  height: 52rem; //fixes issue mentioned in line above
+
+  &__side {
+    height: 52rem;
+    transition: all 3s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; // without this the div will only take up width of text content due to absolute position
+    // -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    // backface-visibility property defines whether or not the back face of an element should be visible when facing the user. back face of an element is a mirror image of the front face
+    border-radius: 3px;
+    overflow: hidden;
+    //hides image overflow from image property "background-blend-mode" below, no radius was showing up in the corners
+    box-shadow: 0 1.5rem 4rem rgba($color-black, 0.15);
+
+    &--front {
+      background-color: $color-white;
+    }
+
+    &--back {
+      transform: rotateY(180deg);
+
+      &-1 {
+        background-image: linear-gradient(
+          to bottom right,
+          $color-secondary-light,
+          $color-secondary-dark
+        );
+      }
+
+      &-2 {
+        background-image: linear-gradient(
+          to bottom right,
+          $color-primary-light,
+          $color-primary-dark
+        );
+      }
+
+      &-3 {
+        background-image: linear-gradient(
+          to bottom right,
+          $color-tersiary-light,
+          $color-tersiary-dark
+        );
+      }
+    }
+  }
+
+  &:hover &__side--front {
+    // .card:hover .card_side--front
+    transform: rotateY(-180deg);
+  }
+
+  &:hover &__side--back {
+    transform: rotateY(0);
+  }
+
+  // FRONT SIDE STYLING
+  &__picture {
+    background-size: cover;
+    height: 23rem;
+    background-blend-mode: screen;
+    // background-blend-mode property defines the blending mode of each background layer (color and/or image).
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+
+    &--1 {
+      background-image: linear-gradient(
+          to bottom right,
+          $color-secondary-light,
+          $color-secondary-dark
+        ),
+        url(../img/nat-5.jpg);
+    }
+
+    &--2 {
+      background-image: linear-gradient(
+          to bottom right,
+          $color-primary-light,
+          $color-primary-dark
+        ),
+        url(../img/nat-6.jpg);
+    }
+
+    &--3 {
+      background-image: linear-gradient(
+          to bottom right,
+          $color-tersiary-light,
+          $color-tersiary-dark
+        ),
+        url(../img/nat-7.jpg);
+    }
+  }
+
+  &__heading {
+    font-size: 2.8rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    text-align: right;
+    color: $color-white;
+    position: absolute;
+    top: 12rem;
+    right: 2rem;
+    width: 75%; // to break it up into two lines
+    z-index: 1; // bottom was getting chopped off from clip path, this fix was in Q&A
+  }
+
+  &__heading-span {
+    padding: 1rem 1.5rem;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    // box-decoration-break property specifies how the background, padding, border, border-image, box-shadow, margin, and clip-path of an element is applied when the box for the element is fragmented
+    // clone: Box decorations apply to each fragment of the element as if the fragments were individual elements. Borders wrap the four edges of each fragment of the element, and backgrounds are redrawn in full for each fragment
+    // heading text is treated as one sentence which messes up the padding, this is the fix
+
+    &--1 {
+      background-image: linear-gradient(
+        to right bottom,
+        rgba($color-secondary-light, 0.8),
+        rgba($color-secondary-dark, 0.8)
+      );
+    }
+
+    &--2 {
+      background-image: linear-gradient(
+        to right bottom,
+        rgba($color-primary-light, 0.8),
+        rgba($color-primary-dark, 0.8)
+      );
+      // basically $color-primary-light and $color-primary-dark variables have hexagon color stored in it but we are mentioning them with rgba(), in normal css is it not possible but with sass it is possible
+    }
+
+    &--3 {
+      background-image: linear-gradient(
+        to right bottom,
+        rgba($color-tersiary-light, 0.8),
+        rgba($color-tersiary-dark, 0.8)
+      );
+    }
+  }
+
+  &__details {
+    padding: 3rem;
+
+    ul {
+      list-style: none;
+      width: 80%;
+      margin: 0 auto;
+
+      li {
+        text-align: center;
+        font-size: 1.5rem;
+        padding: 1rem;
+
+        &:not(:last-child) {
+          border-bottom: 1px solid $color-gray-light-2;
+        }
+      }
+    }
+  }
+
+  //BACK SIDE STYLING
+  &__cta {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    text-align: center;
+  }
+
+  &__price-box {
+    margin-bottom: 8rem;
+    color: $color-white;
+  }
+
+  &__price-only {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+  }
+
+  &__price-value {
+    font-size: 6rem;
+    font-weight: 100;
+  }
+
+  // MAJOR REMAPPING FOR CARD IN MOBILE DEVICES
+  @media only screen and (max-width: 56.25em), only screen and (hover: none) {
+    height: auto;
+    border-radius: 3px; // moved from __side to container element .card
+    background-color: $color-white;
+    box-shadow: 0 1.5rem 4rem rgba($color-black, 0.15); // moved from __side
+
+    &__side {
+      height: auto;
+      position: relative;
+      box-shadow: none;
+
+      &--back {
+        transform: rotateY(0);
+        clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+      }
+    }
+
+    &:hover &__side--front {
+      // .card:hover .card_side--front
+      transform: rotateY(0);
+    }
+
+    &__details {
+      padding: 0 1rem;
+    }
+
+    //BACK SIDE STYLING
+    &__cta {
+      position: relative;
+      top: 0%;
+      left: 0%;
+      transform: translate(0);
+      width: 100%;
+      padding: 7rem 4rem 4rem 4rem;
+    }
+
+    &__price-box {
+      margin-bottom: 2rem;
+    }
+
+    &__price-value {
+      font-size: 4rem;
+    }
+  }
+}
