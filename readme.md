@@ -73,6 +73,23 @@ New Things learnt by this udemy course:
 6. how to calculate vw, w and max-width(max-width in em)
    video 62(responsive images of HTML- density resolution switching) of udemy course
 
+=============================================================
+
+-> 7-1 pattern
+in 7-1 pattern we make 7 different folders for partial SASS files and 1 main SASS file to import all others files into a compiled CSS stylesheets.
+ 
+-> here 7 folders mean:
+1. base/
+2. components/
+3. layout/ 
+4. pages/
+5. themes/
+6. abstracts/
+7. vendors/
+
+in abstracts folder we put code that does not output CSS. eg. variables etc
+in vendors, all third party CSS goes
+
 ===============================================================
 
 Build process
